@@ -1,0 +1,36 @@
+.leftPanel{
+    /* margin-left: 50px; */
+    /* margin-top: 200px; */
+    height: 450px;
+    width: 550px;
+    margin-left: 500px;
+    margin-top: -450px;
+    /* background-color: aqua; */
+    background-color: cornsilk;
+    border-radius: 100px;
+    padding-left: 80px;
+    padding-top: 80px;
+   
+}
+.firstName{
+    height: 500px;
+    width: 400px;
+    /* background-color:azure; */
+}
+.registerButton{
+    margin-top: 100px;
+
+}
+.homecontainer{
+    background-image: url("https://wallpaperaccess.com/full/187161.jpg");
+    /* opacity: 2; */
+    height: 100vh;
+    height: "100%";
+    
+    background-size: cover;
+    /* margin-right: 42px; */
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+
+}

@@ -1,0 +1,19 @@
+.getStated{
+    background-image: url("https://wallpaperaccess.com/full/187161.jpg");
+    /* opacity: 2; */
+    height: 100vh;
+    height: "100%";
+    
+    background-size: cover;
+    /* margin-right: 42px; */
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    
+
+}
+
+.text{
+    margin-left: 600px;
+    margin-top: 500px;
+}
