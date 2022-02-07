@@ -15,6 +15,7 @@ const Home = () => {
   const [url, setUrl] = useState("");
   const [hotelName, setHotelName] = useState();
   const [roomNumber , setRoomNumber] = useState();
+  
   const [roomPrice, setRoomPrice] = useState();
 
   const getHotelName = (e) => {
