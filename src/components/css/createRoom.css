@@ -1,0 +1,26 @@
+.container{
+    background-image: url("https://wallpaperaccess.com/full/187161.jpg");
+    /* opacity: 2; */
+    height: 900px;
+    /* width: "100%"; */
+    
+    background-size: cover;
+    /* margin-right: 42px; */
+    flex: 0;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.picturesUpload{
+    /* background-color: cornsilk; */
+    border-radius: 100px;
+    padding-left: 80px;
+    /* padding-top: 80px; */
+    height: 450px;
+    width: 550px;
+    margin-left: 500px;
+    margin-top:0px;
+}
+
+

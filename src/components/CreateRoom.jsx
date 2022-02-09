@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import firebase from "./firebase";
 import { storage } from "./firebase";
+import "./css/createRoom.css";
 
 const CreateRoom = () => {
   const [image, setImage] = useState(null);
@@ -40,11 +41,20 @@ const CreateRoom = () => {
   console.log("image: ", image);
   return (
     <>
-      hi am room
-      <div className="leftPanel">
+      
+      <div className="homecontainer2">
+        <div className="container">
+
+        <div className="pic">
+          
+        
             <text>Create Room</text>
+
             <br />
             <br />
+            
+            
+            
             <progress value={progress} max="100" />
             <br />
             <br />
@@ -58,8 +68,12 @@ const CreateRoom = () => {
               alt="firebase-image"
             />
           </div>
+
+          </div> 
+            
+        </div>
       
-      </>
+    </>
   );
 };
 export default CreateRoom;

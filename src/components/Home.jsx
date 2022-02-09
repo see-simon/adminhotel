@@ -15,7 +15,7 @@ const Home = () => {
   const [url, setUrl] = useState("");
   const [hotelName, setHotelName] = useState();
   const [roomNumber , setRoomNumber] = useState();
-  
+  const [location, setLocation] = useState();
   const [roomPrice, setRoomPrice] = useState();
 
   const getHotelName = (e) => {
@@ -96,8 +96,8 @@ const Home = () => {
       .add({
         Url: url,
         HotelName: hotelName,
-        RoomNumber: roomNumber,
-        RoomPrice: roomPrice,
+        // RoomNumber: roomNumber,
+        // RoomPrice: roomPrice,
       })
       .then((res) => {
         console.log("hotel created");
@@ -154,10 +154,10 @@ const Home = () => {
         <br />
         <br />
         <form onSubmit={registerHotel}>
-          <input type="file" multiple onChange={handleChange} />
+          <input name="url" type="file" multiple onChange={handleChange} />
           <button onClick={handleUpload}>Upload</button>
-          {/* <input onChange={getHotelName} placeholder="Hotel Name"></input>
-          <input placeholder="Room Number"></input> */}
+           <input onChange={getHotelName} placeholder="Hotel Name"></input>
+          {/* <input placeholder="Room Number"></input>  */}
           <br />
           <br />
           <progress value={progress} max="100" />
@@ -167,14 +167,17 @@ const Home = () => {
 
           <br />
 
-          {files.map((url, i) => (
-            <img
+          {/* {files.map((url, i) => (
+            <img 
               key={i}
               style={{ width: "150px", height: "150px", margin: 15 }}
               src={url || "http://via.placeholder.com/300"}
               alt="firebase-image"
+                
             />
-          ))}
+          
+            
+          ))} */}
           <br/>
           <input
             className="registerButton"
