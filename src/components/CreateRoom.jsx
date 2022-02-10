@@ -7,6 +7,42 @@ const CreateRoom = () => {
   const [image, setImage] = useState(null);
   const [url, setUrl] = useState("");
   const [progress, setProgress] = useState(0);
+  
+  const [roomPrice, setRoomPrice] = useState();
+  const [roomNumber, setRoomNumber] = useState();
+
+
+  const getRoomNumber = (e) => {
+    setRoomNumber(e.target.value);
+  };
+
+  const getRoomPrice = (e) => {
+    setRoomPrice(e.target.value);
+  };
+  //
+
+  const db = firebase.firestore();
+
+  const registerRoom = (e) => {
+    e.preventDefault();
+    db.collection("createRoom")
+      .add({
+        Url: url,
+        RoomPrice: roomPrice,
+        RoomNumber: roomNumber,
+
+        
+      })
+      .then((res) => {
+        console.log("Room created");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+
+
   const handleChange = (e) => {
     if (e.target.files[0]) {
       setImage(e.target.files[0]);
@@ -14,7 +50,7 @@ const CreateRoom = () => {
   };
 
   const handleUpload = () => {
-    const uploadTask = storage.ref(`${image.name}`).put(image);
+    const uploadTask = storage.ref(`Room/${image.name}`).put(image);
     uploadTask.on(
       "state_changed",
       (snapshot) => {
@@ -28,7 +64,7 @@ const CreateRoom = () => {
       },
       () => {
         storage
-          .ref("images")
+          .ref("Room")
           .child(image.name)
           .getDownloadURL()
           .then((url) => {
@@ -39,6 +75,24 @@ const CreateRoom = () => {
   };
 
   console.log("image: ", image);
+
+  const [files, setFiles] = useState([]);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      let result = await storage.ref().child("images/").listAll();
+      let urlPromises = result.items.map((imageRef) =>
+        imageRef.getDownloadURL()
+      );
+      return Promise.all(urlPromises);
+    };
+    const loadImages = async () => {
+      const ulrs = await fetchImages();
+      setFiles(ulrs);
+    };
+    loadImages();
+  }, []);
+  console.log(files);
   return (
     <>
       
@@ -58,15 +112,25 @@ const CreateRoom = () => {
             <progress value={progress} max="100" />
             <br />
             <br />
-            <input type="file" multiple onChange={handleChange} />
+            <form onSubmit={registerRoom}>
+            <input name="url" type="file" multiple onChange={handleChange} />
             <button onClick={handleUpload}>Upload</button>
+            <input onChange={getRoomPrice} placeholder="Room Price"></input>
+           <input onChange={getRoomNumber} placeholder="Room number"></input>
+
+            <input
+            className="registerButton"
+            type="submit"
+            value="Register room"
+          />
+          </form>
             <br />
-            {url}
+            {/* {url} */}
             <br />
-            <img
+            {/* <img
               src={url || "http://via.placeholder.com/300"}
               alt="firebase-image"
-            />
+            /> */}
           </div>
 
           </div> 

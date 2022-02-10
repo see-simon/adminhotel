@@ -14,12 +14,15 @@ const Home = () => {
   const [image, setImage] = useState(null);
   const [url, setUrl] = useState("");
   const [hotelName, setHotelName] = useState();
-  const [roomNumber , setRoomNumber] = useState();
+  //                         put them in create room page
   const [location, setLocation] = useState();
-  const [roomPrice, setRoomPrice] = useState();
-
+  // 
   const getHotelName = (e) => {
     setHotelName(e.target.value);
+  };
+
+  const getLocation = (e) => {
+    setLocation(e.target.value);
   };
 
 
@@ -96,8 +99,8 @@ const Home = () => {
       .add({
         Url: url,
         HotelName: hotelName,
-        // RoomNumber: roomNumber,
-        // RoomPrice: roomPrice,
+        Location: location,
+        //  RoomPrice: roomPrice,
       })
       .then((res) => {
         console.log("hotel created");
@@ -157,6 +160,7 @@ const Home = () => {
           <input name="url" type="file" multiple onChange={handleChange} />
           <button onClick={handleUpload}>Upload</button>
            <input onChange={getHotelName} placeholder="Hotel Name"></input>
+           <input onChange={getLocation} placeholder="Location"></input>
           {/* <input placeholder="Room Number"></input>  */}
           <br />
           <br />

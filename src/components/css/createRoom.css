@@ -1,4 +1,37 @@
-.container{
+
+
+.picturesUpload{
+    /* background-color: cornsilk; */
+    border-radius: 100px;
+    padding-left: 80px;
+    /* padding-top: 80px; */
+    height: 450px;
+    width: 550px;
+    margin-left: 500px;
+    margin-top:0px;
+}
+/* .pic{
+    background-color: aliceblue;
+    width: 500px;
+    height: 500px;
+    margin-top: -400px;
+    border-radius: 100px;
+    margin-left: 400px;
+    padding-left: 100px;
+    padding-top: -70;
+} */
+.box1{
+
+    height: 500px;
+    width: 400px;
+}
+.roomdetails{
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+
+.homecontainer2{
     background-image: url("https://wallpaperaccess.com/full/187161.jpg");
     /* opacity: 2; */
     height: 900px;
@@ -10,17 +43,6 @@
     justify-content: center;
     align-items: center;
 
-}
-
-.picturesUpload{
-    /* background-color: cornsilk; */
-    border-radius: 100px;
-    padding-left: 80px;
-    /* padding-top: 80px; */
-    height: 450px;
-    width: 550px;
-    margin-left: 500px;
-    margin-top:0px;
 }
 
 
