@@ -95,7 +95,8 @@ const Home = () => {
 
   const registerHotel = (e) => {
     e.preventDefault();
-    db.collection("createHotel")
+    let uid = e.target.id
+    db.collection("/createHotel/").doc().collection("room")
       .add({
         Url: url,
         HotelName: hotelName,
