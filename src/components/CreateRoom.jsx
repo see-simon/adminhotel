@@ -21,6 +21,24 @@ const CreateRoom = () => {
   };
   //
 
+
+  const [users, setUsers] = useState([]);
+
+
+  useEffect(() => {
+    let userInfo = [];
+    db.collection("createRoom")
+      .get()
+      .then((res) => {
+        res.forEach((action) => {
+          userInfo.push({ ...action.data(), id: action.id });
+        });
+
+        setUsers(userInfo);
+        // console.log(id)
+      });
+  }, []);
+
   const db = firebase.firestore();
 
   const registerRoom = (e) => {
@@ -36,7 +54,7 @@ const CreateRoom = () => {
         
       })
       .then((res) => {
-        console.log("Room created");
+        console.log("Room created", uid ,"vvvv");
       })
       .catch((err) => {
         console.log(err);
