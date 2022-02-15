@@ -27,7 +27,7 @@ const CreateRoom = () => {
     e.preventDefault();
     let uid = e.target.id
 
-    db.collection("/createHotel/").doc('uid').collection("room")
+    db.collection("/createRoom/")
       .add({
         Url: url,
         RoomPrice: roomPrice,
