@@ -13,10 +13,16 @@ import firebase from "./firebase";
 const Home = () => {
   const [image, setImage] = useState(null);
   const [url, setUrl] = useState("");
+
+//room pics
+  const [roomImage, setRoomImage] = useState(null);
+  const [roomurl, setRoomUrl] = useState("");
+
   const [hotelName, setHotelName] = useState();
   //                         put them in create room page
   const [location, setLocation] = useState();
   // 
+ 
   const getHotelName = (e) => {
     setHotelName(e.target.value);
   };
@@ -25,6 +31,79 @@ const Home = () => {
     setLocation(e.target.value);
   };
 
+  // const getRoomImage=(e)=>{
+  //   setRoomImage(e.target.value)
+  // }
+  const getRoomUrl =(e)=>{
+    setRoomUrl(e.target.value)
+  }
+
+  //for room
+
+  const [roomNumber, setRoomNumber] = useState();
+  const [roomPrice, setRoomPrice] = useState();
+
+  const getRoomNumber = (e)=>{
+    setRoomNumber(e.target.value)
+  }
+  const getRoomPrice =(e)=>{
+    setRoomPrice(e.target.value)
+  }
+
+  const handleRoomImage = (e) => {
+    if (e.target.files[0]) {
+      setImage(e.target.files[0]);
+    }
+  };
+
+  const handleRoomUpload = () => {
+    const uploadTask = storage.ref(`Roomimages/${image.name}`).put(image);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        setProgress(progress);
+      },
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        storage
+          .ref("Roomimages")
+          .child(image.name)
+          .getDownloadURL()
+          .then((url) => {
+            setUrl(url);
+          });
+      }
+    );
+  };
+
+  console.log("image: ", image);
+
+  const [Roomfiles, setRoomFiles] = useState([]);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      let result = await storage.ref().child("Roomimages/").listAll();
+      let urlPromises = result.items.map((imageRef) =>
+        imageRef.getDownloadURL()
+      );
+      return Promise.all(urlPromises);
+    };
+    const loadImages = async () => {
+      const ulrs = await fetchImages();
+      setRoomFiles(ulrs);
+    };
+    loadImages();
+  }, []);
+  console.log(Roomfiles);
+
+
+
+// room ends here
 
   const [progress, setProgress] = useState(0);
   const handleChange = (e) => {
@@ -96,12 +175,15 @@ const Home = () => {
   const registerHotel = (e) => {
     e.preventDefault();
     let uid = e.target.id
-    db.collection("/createHotel/").doc().collection("room")
+    db.collection("createHotel")
       .add({
         Url: url,
         HotelName: hotelName,
         Location: location,
-        //  RoomPrice: roomPrice,
+        RoomNumber: roomNumber,        
+         RoomPrice: roomPrice,
+         RoomUrl : roomurl,
+
       })
       .then((res) => {
         console.log("hotel created");
@@ -159,18 +241,33 @@ const Home = () => {
         <br />
         <form onSubmit={registerHotel}>
           <input name="url" type="file" multiple onChange={handleChange} />
-          <button onClick={handleUpload}>Upload</button>
+          <button onClick={handleUpload}>Upload Hotel</button>
+          <br/>
+          <br/>
+          <input name='url' type="file" onChange={handleRoomImage}></input>
+          <button onClick={handleRoomUpload}>Upload Room</button>
+          
+          <br/>
+          <br/>
+          <br/>
            <input onChange={getHotelName} placeholder="Hotel Name"></input>
-           <input onChange={getLocation} placeholder="Location"></input>
-          {/* <input placeholder="Room Number"></input>  */}
+           <br/>
+           <input onChange={getLocation} placeholder="Hotel Location"></input>
+           <br/>
+           <input onChange={getRoomPrice} placeholder='room Price'></input>
+           <br/>
+           <input onChange={getRoomNumber} placeholder='room Number'></input>
+         
           <br />
           <br />
           <progress value={progress} max="100" />
 
           <br />
           {url}
+          {roomurl}
 
           <br />
+ 
 
           {/* {files.map((url, i) => (
             <img 
