@@ -15,8 +15,7 @@ const Home = () => {
   const [url, setUrl] = useState("");
 
 //room pics
-  const [roomImage, setRoomImage] = useState(null);
-  const [roomurl, setRoomUrl] = useState("");
+  
 
   const [hotelName, setHotelName] = useState();
   //                         put them in create room page
@@ -34,14 +33,17 @@ const Home = () => {
   // const getRoomImage=(e)=>{
   //   setRoomImage(e.target.value)
   // }
-  const getRoomUrl =(e)=>{
-    setRoomUrl(e.target.value)
-  }
+ 
 
   //for room
-
+  // const getRoomUrl =(e)=>{
+  //   setRoomUrl(e.target.value)
+  // }
   const [roomNumber, setRoomNumber] = useState();
   const [roomPrice, setRoomPrice] = useState();
+
+  const [roomImage, setRoomImage] = useState(null);
+  const [roomurl, setRoomUrl] = useState("");
 
   const getRoomNumber = (e)=>{
     setRoomNumber(e.target.value)
@@ -75,7 +77,7 @@ const Home = () => {
           .child(image.name)
           .getDownloadURL()
           .then((url) => {
-            setUrl(url);
+            setRoomUrl(url);
           });
       }
     );
@@ -182,7 +184,7 @@ const Home = () => {
         Location: location,
         RoomNumber: roomNumber,        
          RoomPrice: roomPrice,
-         RoomUrl : roomurl,
+         roomUrl : roomurl,
 
       })
       .then((res) => {
@@ -244,7 +246,7 @@ const Home = () => {
           <button onClick={handleUpload}>Upload Hotel</button>
           <br/>
           <br/>
-          <input name='url' type="file" onChange={handleRoomImage}></input>
+          <input name='roomurl' type="file" multiple onChange={handleRoomImage}></input>
           <button onClick={handleRoomUpload}>Upload Room</button>
           
           <br/>
