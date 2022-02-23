@@ -36,13 +36,13 @@ const Home = () => {
  
 
   //for room
-  // const getRoomUrl =(e)=>{
-  //   setRoomUrl(e.target.value)
-  // }
+
+
+
   const [roomNumber, setRoomNumber] = useState();
   const [roomPrice, setRoomPrice] = useState();
 
-  const [roomImage, setRoomImage] = useState(null);
+  const [roomImage, setRoomImage] = useState([]);
   const [roomurl, setRoomUrl] = useState("");
 
   const getRoomNumber = (e)=>{
@@ -53,13 +53,26 @@ const Home = () => {
   }
 
   const handleRoomImage = (e) => {
-    if (e.target.files[0]) {
-      setImage(e.target.files[0]);
+    for (let i = 0; i < e.target.files.length; i++) {
+      const newImage = e.target.files[i];
+      newImage["id"] = Math.random();
+      setRoomImage((prevState) => [...prevState, newImage]);
     }
   };
 
+  // const handleRoomImage = (e) => {
+  //   if (e.target.files[0]) {
+  //     setRoomImage(e.target.files[0]);
+  //   }
+  // };
+
   const handleRoomUpload = () => {
-    const uploadTask = storage.ref(`Roomimages/${image.name}`).put(image);
+    const promise = [];
+    roomImage.map(roomImage=>{
+
+    
+    const uploadTask = storage.ref(`Roomimages/${roomImage.name}`).put(roomImage);
+    promise.push(uploadTask)
     uploadTask.on(
       "state_changed",
       (snapshot) => {
@@ -71,19 +84,25 @@ const Home = () => {
       (error) => {
         console.log(error);
       },
-      () => {
-        storage
+        async () => {
+        await storage
           .ref("Roomimages")
-          .child(image.name)
+          .child(roomImage.name)
           .getDownloadURL()
           .then((url) => {
-            setRoomUrl(url);
+            setRoomUrl((prevState)=> [...prevState, url]);
           });
       }
     );
+
+  });
+  // Promise.all(promises)
+  // .then(() => alert("All images uploaded"))
+  // .catch((err) => console.log(err));
+  
   };
 
-  console.log("image: ", image);
+  console.log("roomImage: ", roomImage);
 
   const [Roomfiles, setRoomFiles] = useState([]);
 
